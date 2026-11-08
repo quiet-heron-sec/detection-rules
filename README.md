@@ -1,6 +1,6 @@
 # detection-rules
 
-Sigma and YARA rules intented for sharing. Some rules come from the analysis of a specific campaign, others describe a technique independently of any campaign. Rules start as `experimental` (Sigma) or `TESTING` (YARA) and only change status after use in production.
+Sigma and YARA rules intended for sharing. Some rules come from the analysis of a specific campaign, others describe a technique independently of any campaign. Rules start as `experimental` (Sigma) or `TESTING` (YARA) and only change status after use in production.
 
 ## Layout
 
