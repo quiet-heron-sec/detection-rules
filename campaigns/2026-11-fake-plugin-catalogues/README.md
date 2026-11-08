@@ -2,7 +2,7 @@
 
 Sigma and YARA rules for a fake plugin catalogue campaign active around October and November 2026. At least two branches distribute malware through sites posing as software plugin catalogues:
 
-- **PluginDex** (plugin-dex[.]com, plugin-dex[.]cc, plugin-dex[.]forum, wppluginindex[.]com): a ClickFix chain that relies on Deno and installs a remote access implant, and a later archive in which a signed WinGup updater side-loads a trojanized `libcurl.dll`.
+- **PluginDex** (plugin-dex[.]com, plugin-dex[.]cc, plugin-dex[.]forum, wppluginindex[.]com): fake cracks that start a Deno loader injecting an implant into Explorer (hidden desktop, browser and Telegram data theft), a ClickFix chain (`svvv2.ps1`, then an MSI installer), and a later archive in which a signed WinGup updater side-loads a trojanized `libcurl.dll`.
 - **AnyPlugins** (anyplugins[.]com): a signed gVim build side-loads a trojanized `vim64.dll`, a 7-Zip SFX module that runs a compiled AutoIt script, which decrypts a payload and injects it by process hollowing.
 
 Both branches use a signed legitimate executable that loads a trojanized DLL placed next to it. This shared technique does not necessarily mean a common actor is involved.
