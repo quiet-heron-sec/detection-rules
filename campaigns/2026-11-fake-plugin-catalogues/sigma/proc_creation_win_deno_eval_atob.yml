@@ -4,7 +4,7 @@ related:
     - id: 85a40a22-91a2-4386-bcd5-621a6f7c348d
       type: similar
 status: experimental
-description: Detects deno.exe started with eval and atob on the command line. The hhunter implant spread through fake PluginDex plugin catalogues (October and November 2026) persists through a Run value that reads code from the registry and runs it with deno.exe eval -A "eval(atob(...))", often under conhost --headless.
+description: Detects deno.exe started with eval and atob on the command line. In a fake plugin catalogue campaign (PluginDex, October and November 2026), a Deno loader that injects an implant with the internal name hhunter into Explorer persists through a Run value that reads its code from the registry and runs it with deno.exe eval -A "eval(atob(...))", under conhost --headless in the observed cases.
 references:
     - https://threatfox.abuse.ch/ioc/2016460/
     - https://www.virustotal.com/gui/file/753eff3f77801074089f4af80d7e9d496397ea657a4af3daa5639dad57b6a03c/behavior

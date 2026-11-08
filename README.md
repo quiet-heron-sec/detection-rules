@@ -14,7 +14,7 @@ Each folder describes how its rules were tested: Sigma log sources, test host an
 
 | Folder | Activity | Sigma | YARA |
 |---|---|---|---|
-| [`2026-11-fake-plugin-catalogues`](campaigns/2026-11-fake-plugin-catalogues/) | fake software plugin catalogues distributing loaders, a remote access implant and stealer payloads (October to November 2026) | 8 | 12 |
+| [`2026-11-fake-plugin-catalogues`](campaigns/2026-11-fake-plugin-catalogues/) | fake software plugin catalogues distributing loaders, a remote access implant and stealer payloads (August to November 2026) | 8 | 12 |
 
 ## Licences
 

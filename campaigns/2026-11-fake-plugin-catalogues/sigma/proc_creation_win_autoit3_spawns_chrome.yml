@@ -4,9 +4,10 @@ related:
     - id: 1cbbbc18-0590-483e-b618-8588dfb0ed23
       type: similar
 status: experimental
-description: Detects chrome.exe started by the AutoIt3 interpreter. In a November 2026 fake plugin campaign (AnyPlugins), the hollowed second AutoIt3.exe started by a compiled AutoIt script launches Chrome and injects code into it before sending browser data over HTTPS.
+description: Detects chrome.exe started by the AutoIt3 interpreter. In a November 2026 fake plugin campaign (AnyPlugins), the hollowed second AutoIt3.exe started by a compiled AutoIt script launches Chrome, injects code into it and sends HTTPS POST requests to its server.
 references:
     - https://tria.ge/261106-ml4dqaay7s/
+    - https://www.joesandbox.com/analysis/1999659
     - https://bazaar.abuse.ch/sample/40e9906f017d9285fcd3ef01d5d87d56784350189734ba78f4260227dbe73b2d/
 author: quiet-heron-sec
 date: 2026-11-08

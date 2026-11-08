@@ -1,6 +1,6 @@
 import "pe"
 
-rule MAL_Backdoor_RuntimeBroker_WebSocket_Nov26 {
+rule MAL_Payload_RuntimeBroker_WebSocket_Nov26 {
     meta:
         id = "7Zksjuar74DG34Blf4Zhj1"
         fingerprint = "7b8d49cf3316116b85da0288b6203dbf024b275f1ab4682324ef1c4e5f3e6a78"
@@ -13,15 +13,15 @@ rule MAL_Backdoor_RuntimeBroker_WebSocket_Nov26 {
         sharing = "TLP:CLEAR"
         source = "QUIET-HERON-SEC"
         author = "quiet-heron-sec"
-        description = "Detects a backdoor that installs itself as RuntimeBroker.exe in ProgramData and uses a WebSocket C2"
+        description = "Detects a payload that copies itself as RuntimeBroker.exe into ProgramData and contacts a WebSocket C2"
         category = "MALWARE"
-        malware = "RUNTIMEBROKER WEBSOCKET BACKDOOR"
-        malware_type = "BACKDOOR"
+        malware = "RUNTIMEBROKER WEBSOCKET PAYLOAD"
+        malware_type = "TROJAN"
         mitre_att = "T1036.005"
         reference = "https://bazaar.abuse.ch/sample/40ea2317b6703a8b3e0108ed49686203cdafc59c59ff8c604bd46740c405e5a5/"
         hash = "40ea2317b6703a8b3e0108ed49686203cdafc59c59ff8c604bd46740c405e5a5"
         yarahub_reference_md5 = "c9cca2f963fac36be7252222c960db53"
-        yarahub_reference_link = "https://github.com/quiet-heron-sec/detection-rules/blob/main/campaigns/2026-11-fake-plugin-catalogues/yara/backdoor_runtimebroker_websocket.yar"
+        yarahub_reference_link = "https://github.com/quiet-heron-sec/detection-rules/blob/main/campaigns/2026-11-fake-plugin-catalogues/yara/payload_runtimebroker_websocket.yar"
         yarahub_uuid = "93890fe7-24e3-43f5-9048-1829b41313a2"
         yarahub_license = "CC BY 4.0"
         yarahub_rule_matching_tlp = "TLP:WHITE"
