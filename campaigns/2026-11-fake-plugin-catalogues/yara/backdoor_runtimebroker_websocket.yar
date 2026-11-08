@@ -21,6 +21,7 @@ rule MAL_Backdoor_RuntimeBroker_WebSocket_Nov26 {
         reference = "https://bazaar.abuse.ch/sample/40ea2317b6703a8b3e0108ed49686203cdafc59c59ff8c604bd46740c405e5a5/"
         hash = "40ea2317b6703a8b3e0108ed49686203cdafc59c59ff8c604bd46740c405e5a5"
         yarahub_reference_md5 = "c9cca2f963fac36be7252222c960db53"
+        yarahub_reference_link = "https://github.com/quiet-heron-sec/detection-rules/blob/main/campaigns/2026-11-fake-plugin-catalogues/yara/backdoor_runtimebroker_websocket.yar"
         yarahub_uuid = "93890fe7-24e3-43f5-9048-1829b41313a2"
         yarahub_license = "CC BY 4.0"
         yarahub_rule_matching_tlp = "TLP:WHITE"

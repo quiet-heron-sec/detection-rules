@@ -18,6 +18,7 @@ rule SUSP_SFX_7Zip_Runs_AutoIt_Nov26 {
         reference = "https://bazaar.abuse.ch/sample/40e9906f017d9285fcd3ef01d5d87d56784350189734ba78f4260227dbe73b2d/"
         hash = "40e9906f017d9285fcd3ef01d5d87d56784350189734ba78f4260227dbe73b2d"
         yarahub_reference_md5 = "76b8b78a5596046815a4664d0605594c"
+        yarahub_reference_link = "https://github.com/quiet-heron-sec/detection-rules/blob/main/campaigns/2026-11-fake-plugin-catalogues/yara/susp_sfx_7zip_runs_autoit.yar"
         yarahub_uuid = "b45782f9-bb0b-4d06-b0d9-660a6864bf6e"
         yarahub_license = "CC BY 4.0"
         yarahub_rule_matching_tlp = "TLP:WHITE"
