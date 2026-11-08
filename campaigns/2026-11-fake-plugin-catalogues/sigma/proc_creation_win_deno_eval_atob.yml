@@ -1,0 +1,33 @@
+title: Deno Evaluating Base64 Decoded Code
+id: 26965349-2b2c-488d-810d-4f157b4457d7
+related:
+    - id: 85a40a22-91a2-4386-bcd5-621a6f7c348d
+      type: similar
+status: experimental
+description: Detects deno.exe started with eval and atob on the command line. The hhunter implant spread through fake PluginDex plugin catalogues (October and November 2026) persists through a Run value that reads code from the registry and runs it with deno.exe eval -A "eval(atob(...))", often under conhost --headless.
+references:
+    - https://threatfox.abuse.ch/ioc/2016460/
+    - https://www.virustotal.com/gui/file/753eff3f77801074089f4af80d7e9d496397ea657a4af3daa5639dad57b6a03c/behavior
+author: quiet-heron-sec
+date: 2026-11-08
+modified: 2026-11-08
+tags:
+    - attack.execution
+    - attack.t1059.007
+    - attack.stealth
+    - attack.t1027
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        - Image|endswith: '\deno.exe'
+        - OriginalFileName: 'deno.exe'
+    selection_cli:
+        CommandLine|contains|all:
+            - 'eval'
+            - 'atob'
+    condition: all of selection*
+falsepositives:
+    - Developers testing inline Deno code
+level: high
