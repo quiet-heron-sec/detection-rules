@@ -16,6 +16,7 @@ tags:
     - attack.t1055
     - attack.credential-access
     - attack.t1555.003
+    - attack.privilege-escalation
 logsource:
     category: process_creation
     product: windows

@@ -1,0 +1,41 @@
+title: Potential Forced Group Policy Refresh Via Cmd From Suspicious Parent Location
+id: 60ed80cc-0e74-485b-9853-e83fddb0ee27
+status: experimental
+description: |
+    Detects cmd.exe running "gpupdate /force" when its parent process is located under C:\ProgramData\, an AppData folder or a Temp folder.
+    Malware that adds Microsoft Defender exclusions forces a policy refresh right after, so that the new settings apply at once.
+    The malicious libcurl.dll that drops the RuntimeBroker loader runs "cmd.exe /C gpupdate /force" after two "Add-MpPreference -ExclusionPath" commands, and the loader itself chains "Add-MpPreference -ExclusionPath" and "gpupdate /force" once elevated.
+references:
+    - https://bazaar.abuse.ch/sample/396dec948380f5ad806da0e06dbfbb1fc556df65002ad6616937cb87d0e7576f/
+    - https://bazaar.abuse.ch/sample/40ea2317b6703a8b3e0108ed49686203cdafc59c59ff8c604bd46740c405e5a5/
+    - https://github.com/Lv-Max/runtimebroker-loader-analysis/blob/21e2df8282e6d0d11a19d480e5ec83b9824e7be2/analysis.md
+author: quiet-heron-sec
+date: 2026-11-08
+tags:
+    - attack.execution
+    - attack.defense-impairment
+    - attack.t1059.003
+    - attack.t1685
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        - Image|endswith: '\cmd.exe'
+        - OriginalFileName: 'Cmd.Exe'
+    selection_cli_gpupdate:
+        CommandLine|contains: 'gpupdate'
+    selection_cli_force:
+        CommandLine|contains:
+            - '/force'
+            - '-force'
+    selection_parent:
+        ParentImage|contains:
+            - ':\ProgramData\'
+            - '\AppData\'
+            - '\Temp\'
+    condition: all of selection_*
+falsepositives:
+    - Installers or administration scripts started from a Temp or AppData folder that refresh Group Policy
+    - Management agents installed under C:\ProgramData\ that run gpupdate through cmd.exe
+level: medium

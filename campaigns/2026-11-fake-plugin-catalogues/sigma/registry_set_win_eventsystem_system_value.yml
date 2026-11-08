@@ -9,6 +9,8 @@ date: 2026-11-08
 tags:
     - attack.stealth
     - attack.t1112
+    - attack.defense-impairment
+    - attack.persistence
 logsource:
     category: registry_set
     product: windows

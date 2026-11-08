@@ -1,0 +1,30 @@
+title: Suspicious Process Execution From Fake ProgramData Windows Folder
+id: 5bb7d295-7631-436e-a25b-31c4dcdd59db
+related:
+    - id: e4a6b256-3e47-40fc-89d2-7a477edd6915 # System File Execution Location Anomaly
+      type: similar
+status: experimental
+description: |
+    Detects the execution of a process whose image is located under C:\ProgramData\Windows\, a folder that does not exist on a standard Windows installation.
+    The legitimate folders C:\ProgramData\Microsoft\Windows\ and C:\ProgramData\Microsoft\Windows Defender\ are not matched.
+    Malware creates C:\ProgramData\Windows\ to imitate a system location. The RuntimeBroker loader, which third-party analyses show downloading a stealer DLL that names itself Redhive Stealer or Mops Stealer V3, copies itself to C:\ProgramData\Windows\Microsoft\RuntimeBroker.exe and runs this copy.
+references:
+    - https://bazaar.abuse.ch/sample/396dec948380f5ad806da0e06dbfbb1fc556df65002ad6616937cb87d0e7576f/
+    - https://bazaar.abuse.ch/sample/40ea2317b6703a8b3e0108ed49686203cdafc59c59ff8c604bd46740c405e5a5/
+    - https://github.com/Lv-Max/runtimebroker-loader-analysis/blob/21e2df8282e6d0d11a19d480e5ec83b9824e7be2/analysis.md
+    - https://winslow1984.com/books/threat-intelligence/page/hey-you-hacked-a-hacker-are-you-ready-for-my-revenge
+author: quiet-heron-sec
+date: 2026-11-08
+tags:
+    - attack.stealth
+    - attack.t1036.005
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|startswith: 'C:\ProgramData\Windows\'
+    condition: selection
+falsepositives:
+    - Third-party software that installs itself under C:\ProgramData\Windows\ (not observed, check that the folder is absent on a reference host before deployment)
+level: high

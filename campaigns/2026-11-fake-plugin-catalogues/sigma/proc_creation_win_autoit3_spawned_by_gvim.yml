@@ -6,7 +6,6 @@ references:
     - https://bazaar.abuse.ch/sample/40e9906f017d9285fcd3ef01d5d87d56784350189734ba78f4260227dbe73b2d/
 author: quiet-heron-sec
 date: 2026-11-08
-modified: 2026-11-08
 tags:
     - attack.execution
     - attack.t1059.010

@@ -10,7 +10,6 @@ references:
     - https://www.virustotal.com/gui/file/753eff3f77801074089f4af80d7e9d496397ea657a4af3daa5639dad57b6a03c/behavior
 author: quiet-heron-sec
 date: 2026-11-08
-modified: 2026-11-08
 tags:
     - attack.execution
     - attack.t1059.007

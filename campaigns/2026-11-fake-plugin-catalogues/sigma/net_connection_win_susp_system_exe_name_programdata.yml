@@ -1,0 +1,70 @@
+title: Suspicious Network Connection By System Binary Name From ProgramData
+id: b877b784-9cb2-49d1-9f94-ae2e1c710db8
+related:
+    - id: e4a6b256-3e47-40fc-89d2-7a477edd6915 # System File Execution Location Anomaly
+      type: similar
+    - id: 7b434893-c57d-4f41-908d-6a17bf1ae98f # Network Connection Initiated From Process Located In Potentially Suspicious Or Uncommon Location
+      type: similar
+status: experimental
+description: |
+    Detects a network connection, outbound or inbound, by an executable located under C:\ProgramData\ that carries the file name of a Windows system binary, such as RuntimeBroker.exe, svchost.exe or taskhostw.exe.
+    The genuine binaries live in C:\Windows\System32 or C:\Windows\SysWOW64. Malware copies itself under C:\ProgramData\ with such a name to blend in with system processes, then contacts its command and control server. The rule does not filter on Initiated, so that it works whether an engine reads this field as a string or as a boolean, and it also reports connections received by such a binary.
+    The RuntimeBroker loader, which third-party analyses show downloading a stealer DLL that names itself Redhive Stealer or Mops Stealer V3, copies itself to C:\ProgramData\Windows\Microsoft\RuntimeBroker.exe and opens a WebSocket connection on TCP port 406. Third-party analyses of the same loader report the module download on TCP port 408.
+references:
+    - https://bazaar.abuse.ch/sample/396dec948380f5ad806da0e06dbfbb1fc556df65002ad6616937cb87d0e7576f/
+    - https://bazaar.abuse.ch/sample/40ea2317b6703a8b3e0108ed49686203cdafc59c59ff8c604bd46740c405e5a5/
+    - https://github.com/Lv-Max/runtimebroker-loader-analysis/blob/21e2df8282e6d0d11a19d480e5ec83b9824e7be2/analysis.md
+    - https://winslow1984.com/books/threat-intelligence/page/hey-you-hacked-a-hacker-are-you-ready-for-my-revenge
+author: quiet-heron-sec
+date: 2026-11-08
+tags:
+    - attack.command-and-control
+    - attack.stealth
+    - attack.t1036.005
+logsource:
+    category: network_connection
+    product: windows
+detection:
+    selection:
+        Image|startswith: 'C:\ProgramData\'
+        Image|endswith:
+            - '\atbroker.exe'
+            - '\audiodg.exe'
+            - '\backgroundTaskHost.exe'
+            - '\bitsadmin.exe'
+            - '\certutil.exe'
+            - '\cmd.exe'
+            - '\cmstp.exe'
+            - '\conhost.exe'
+            - '\csrss.exe'
+            - '\cscript.exe'
+            - '\dashost.exe'
+            - '\dllhost.exe'
+            - '\dwm.exe'
+            - '\explorer.exe'
+            - '\lsass.exe'
+            - '\lsm.exe'
+            - '\msiexec.exe'
+            - '\powershell.exe'
+            - '\regsvr32.exe'
+            - '\rundll32.exe'
+            - '\RuntimeBroker.exe'
+            - '\services.exe'
+            - '\sihost.exe'
+            - '\smartscreen.exe'
+            - '\smss.exe'
+            - '\spoolsv.exe'
+            - '\svchost.exe'
+            - '\taskhost.exe'
+            - '\taskhostw.exe'
+            - '\Taskmgr.exe'
+            - '\userinit.exe'
+            - '\werfault.exe'
+            - '\wininit.exe'
+            - '\winlogon.exe'
+            - '\wmic.exe'
+            - '\wscript.exe'
+    condition: selection
+falsepositives:
+    - Software deployment or packaging tools that cache a copy of a system binary under C:\ProgramData\ and run it (not observed, baseline before deployment)
+level: high
