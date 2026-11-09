@@ -1,0 +1,32 @@
+title: Explorer Writes Base64 Data To Random Named Value Under HKCU Software
+id: f7afd971-8e8a-4628-b797-81ca4505abd7
+related:
+    - id: ea89363c-1d9e-4d30-b9cc-22fc2862f9ed
+      type: similar
+status: experimental
+description: |
+    Detects explorer.exe writing a long base64 string to a value with an 8 character lowercase alphanumeric name, under a key directly below HKCU Software whose name has 14 lowercase alphanumeric characters. The reserve backdoor of the implant with the internal name hhunter writes this value from its own process, and the fileless delivery of this implant maps it into Explorer. Delivery as a directly run executable writes from that executable and is not covered, use the related rule where the registry is broadly logged.
+    Prerequisite for Sysmon: log registry events of explorer.exe outside its noisy subtrees, with Image condition image explorer.exe, EventType is SetValue and TargetObject condition excludes any \Software\Microsoft\;\Software\Classes\;\Software\Policies\;\Software\Wow6432Node\;_Classes\ in a RegistryEvent include filter placed in a RuleGroup with groupRelation and. Tested on Sysmon 15.22, where the condition excludes all did not filter.
+references:
+    - https://bazaar.abuse.ch/sample/5410f0b624c2e396134e96545fea2ced1421b29e7af6a3023790335c0979d772/
+author: quiet-heron-sec
+date: 2026-11-09
+tags:
+    - attack.stealth
+    - attack.persistence
+    - attack.t1112
+    - attack.t1027.011
+logsource:
+    category: registry_set
+    product: windows
+detection:
+    selection_image:
+        Image|endswith: '\explorer.exe'
+    selection_key:
+        TargetObject|re: '^HKU\\S-1-5-21-[0-9-]+\\Software\\[a-z0-9]{14}\\[a-z0-9]{8}$'
+    selection_data:
+        Details|re: '^[A-Za-z0-9+/]{100,}'
+    condition: all of selection_*
+falsepositives:
+    - Unlikely, a shell extension loaded in Explorer that stores base64 encoded data under a generated key name directly below HKCU Software
+level: high

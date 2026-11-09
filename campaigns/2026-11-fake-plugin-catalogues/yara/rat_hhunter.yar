@@ -1,12 +1,12 @@
 rule MAL_RAT_HHunter_Nov26 {
     meta:
         id = "4Zvv826r1nO22YwXuDUvew"
-        fingerprint = "8c9832fa3d40b84ffbde2181cbf5da869c8f26ddf9484983df9a8871889e32ff"
-        version = "1.0"
+        fingerprint = "4b55fc404fa8dff26112f321aea7effbf20949b58545eb98102d44cb28a906c0"
+        version = "1.1"
         score = 85
         minimum_yara = "4.2"
         date = "2026-11-08"
-        modified = "2026-11-08"
+        modified = "2026-11-09"
         status = "TESTING"
         sharing = "TLP:CLEAR"
         source = "QUIET-HERON-SEC"
@@ -33,11 +33,22 @@ rule MAL_RAT_HHunter_Nov26 {
         $s5 = "UploadChunk" ascii
         $s6 = "ClipboardPush" ascii
         $s7 = "Hilmere" ascii
+        $n1 = "Kordane" ascii
+        $n2 = "Fenlowe" ascii
+        $n3 = "Caldris" ascii
+        $n4 = "Mardov" ascii
+        $n5 = "Drellan" ascii
+        $n6 = "Garrond" ascii
+        $n7 = "Tavine" ascii
+        $n8 = "Sorveld" ascii
+        $n9 = "Norvald" ascii
+        $n10 = "Tervick" ascii
+        $r1 = "json:\"reserve_enabled" ascii
 
     condition:
         uint16(0) == 0x5A4D
         and filesize < 100MB
-        and 4 of them
+        and (4 of ($s*) or (8 of ($n*) and $r1))
 }
 
 rule MAL_RAT_HHunter_Memory_Nov26 {

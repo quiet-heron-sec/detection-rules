@@ -1,0 +1,44 @@
+title: Run Key Value Named After Hhunter Reserve Backdoor Table
+id: 362dfa19-f0aa-4cfe-b33a-3f210dfc2bfa
+related:
+    - id: 85a40a22-91a2-4386-bcd5-621a6f7c348d
+      type: similar
+status: experimental
+description: Detects a Run key value that uses one of the 12 names from the table of the reserve backdoor in the implant with the internal name hhunter, and starts deno or a hidden conhost that reads the registry. Seen in the code of a sample from a fake plugin catalogue campaign (PluginDex, October and November 2026). The server enables this path with a flag, and it was not observed on a host.
+references:
+    - https://bazaar.abuse.ch/sample/5410f0b624c2e396134e96545fea2ced1421b29e7af6a3023790335c0979d772/
+author: quiet-heron-sec
+date: 2026-11-09
+tags:
+    - attack.persistence
+    - attack.t1547.001
+    - attack.privilege-escalation
+logsource:
+    category: registry_set
+    product: windows
+detection:
+    selection_name:
+        TargetObject|endswith:
+            - '\Software\Microsoft\Windows\CurrentVersion\Run\Kordane'
+            - '\Software\Microsoft\Windows\CurrentVersion\Run\Fenlowe'
+            - '\Software\Microsoft\Windows\CurrentVersion\Run\Caldris'
+            - '\Software\Microsoft\Windows\CurrentVersion\Run\Mardov'
+            - '\Software\Microsoft\Windows\CurrentVersion\Run\Drellan'
+            - '\Software\Microsoft\Windows\CurrentVersion\Run\Garrond'
+            - '\Software\Microsoft\Windows\CurrentVersion\Run\Hilmere'
+            - '\Software\Microsoft\Windows\CurrentVersion\Run\Tavine'
+            - '\Software\Microsoft\Windows\CurrentVersion\Run\Brenholt'
+            - '\Software\Microsoft\Windows\CurrentVersion\Run\Sorveld'
+            - '\Software\Microsoft\Windows\CurrentVersion\Run\Norvald'
+            - '\Software\Microsoft\Windows\CurrentVersion\Run\Tervick'
+    selection_deno:
+        Details|contains: 'deno'
+    selection_reader:
+        Details|contains|all:
+            - 'conhost'
+            - '--headless'
+            - 'reg query'
+    condition: selection_name and (selection_deno or selection_reader)
+falsepositives:
+    - Unknown
+level: high
